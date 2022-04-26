@@ -1,39 +1,48 @@
 <?php
+    ini_set('display_erros','On');
+    require __DIR__ . '/db_connection.php';
+    $mysql = get_db_connection_or_die();
 
-include('config.php');
-session_start();
-
-if (isset($_POST['register'])){
-
-    $username = $_POST['username'];
+    $name = $_POST['name'];
     $surname = $_POST['surname'];
     $surname2 = $_POST['surname2'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
-    $password_hash = password_hash($password, PASSWORD_BCRYPT);
+    $password2 = $_POST['password2'];
 
-    $query = $connection->prepare("SELECT * FROM Usuario WHERE num_telefono=:phone");
-    $query->bindParam("phone",$phone, PDO::PARAM_STR);
-    $query->execute();
-
-    if($query->rowCount() > 0){
-        echo '<p class="error">The email address is already registered!</p>';
+    if (empty($name) or empty($surname) or empty($surname2) or empty($phone) or empty($password) or empty($password2)){
+        die("Introduce los datos");
     }
 
-    if($query->rowCount() == 0 ){
-        $query=$connection->prepare("INSERT INTO Usuario(nombre,primer_apellido,segundo_apellido,num_telefono,password_hashed) VALUES (:username,:surname,:surname2,:phone,:password_hash)");
-        $query->bindParam("username",$username, PDO::PARAM_STR);
-        $query->bindParam("surname",$surname, PDO::PARAM_STR);
-        $query->bindParam("surname2",$surname2, PDO::PARAM_STR);
-        $query->bindParam("phone",$phone, PDO::PARAM_STR);
-        $query->bindParam("password_hash",$password_hash, PDO::PARAM_STR);
-        $result = $query->execute();
+    if($password!=$password2){
+        die("Las contraseñas deben ser iguales");
+    }
 
-        if ($result) {
-            echo '<p class="success">El registro se ha completado!</p>';
-        } else {
-            echo '<p class="error">Algo salió mal!</p>';
+    $sql = "SELECT * FROM Usuario WHERE num_telefono = ?";
+    $stmt = $mysql->prepare($sql);
+    $stmt->bind_param("s",$phone);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if($result->num_rows==1){
+        header("Location: register.php?register_failed_phone=True");
+        exit;
+    }else {
+        try{
+            $sql2 = "INSERT INTO Usuario (id,nombre,primer_apellido,segundo_apellido,num_telefono,password_hashed) VALUES (?,?,?,?,?,?)";
+            $stmt = $mysql->prepare($sql2);
+            $password = password_hash($_POST['password'],PASSWORD_BCRYPT);
+            $id=mt_rand(2,999);
+            $stmt -> bind_param("isssss",$id,$name,$surname,$surname2,$phone,$password);
+            $stmt->execute();
+            $stmt->close();
+        }catch(Exception $e){
+            error_log($e);
+            header("Location: register.php?register_failed_unkown=True");
         }
+        header("Location: register.php?register_success=True");
     }
-}
+    
+    mysqli_close($mysql);
+
 ?>

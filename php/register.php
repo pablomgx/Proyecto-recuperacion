@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página registro</title>
 
 <style>
     * {
@@ -77,36 +84,53 @@ p.error {
     font-family: 'Bebas Neue', cursive;
 }
 </style>
-<link href="../css/styles.css" rel="stylesheet" type="text/css" /> 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hubballi&display=swap" rel="stylesheet">
+</head>
+<body>
+    <?php
+        if($_GET['register_success'] == 'True'){
+            echo "<p>Usuario registrado</p>";
+            echo "<br>";
+            echo "<a href='login.php'>Login</a>";
+            echo "<br>";
+        }
+        if($_GET['register_failed_phone'] == 'True'){
+            echo "<p>Ya existe un usuario con ese número de teléfono</p>";
+        }
+        if($_GET['register_failed_unknown'] == 'True') {
+            echo "<p>El registro fallo por motivos desconocidos</p>";
+        }
+    ?>      
 <p class="title">WebSeries</p>
 <div class="formulario">
-<form method="post" action="./do_register.php" name="signup-form">
+<form method="post" action="/do_register.php" name="signup-form">
     <div class="form-element">
         <label style="color:black;">Nombre</label>
-        <input type="text" style="width : 150px; heigth : 10px" required>
+        <input id="name" name="name" type="text" style="width : 150px; heigth : 10px" required>
     </div>
     <div class="form-element">
         <label style="color:black;">Primer apellido</label>
-        <input type="text" style="width : 150px; heigth : 10px" required>
+        <input  id="surname" name="surname" type="text" style="width : 150px; heigth : 10px" required>
     </div>
     <div class="form-element">
         <label style="color:black;">Segundo apellido</label>
-        <input type="text" style="width : 150px; heigth : 10px" required>
+        <input  id="surname2" name="surname2" type="text" style="width : 150px; heigth : 10px" required>
     </div>
     <div class="form-element">
         <label style="color:black;">Num. teléfono</label>
-        <input type="text" name="numTelefono" style="width : 150px; heigth : 10px" required>
+        <input  id="phone" name="phone" type="text" name="numTelefono" style="width : 150px; heigth : 10px" required>
     </div>
     <div class="form-element">
         <label style="color:black;">Contraseña</label>
-        <input type="password" name="password" style="width : 150px; heigth : 10px" required>
+        <input  id="password" name="password" type="password" name="password" style="width : 150px; heigth : 10px" required>
     </div>
     <div class="form-element">
         <label style="color:black;">Verifica la contraseña</label>
-        <input type="password" name="password" style="width : 150px; heigth : 10px" required>
+        <input  id="password2" name="password2" type="password" name="password" style="width : 150px; heigth : 10px" required>
     </div>
     <button type="submit" name="register" value="register">Registro</button>
 </div>
+</body>
+</html>
