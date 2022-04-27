@@ -24,6 +24,16 @@
       a{
         color:white;
       }
+      p{
+        text-align:center;
+        color:white;
+        font-size:20px;
+      }
+      .form-element{
+        text-align:center;
+        color:white;
+        font-size:20px;
+      }
     </style>
 </head>
 <body>
@@ -37,5 +47,41 @@
     echo '<p class="title">Bienvenido a WebSeries</p>';
   }
 ?>
+
+<form action="buscador.php" method="post">
+  <div class="form-element">
+    <label>Buscador   
+      <input type="search" id="texto_busqueda" name="texto_busqueda" placeholder="Título, autor...">
+    </label>
+    <input type="submit" value="Buscar" name="search" id="search">
+  </div>
+</form>
+
+<?php
+  if(isset($_POST['search'])){
+    $value = $_POST['texto_busqueda']; 
+    require __DIR__ . '/db_connection.php';
+    $db = get_db_connection_or_die();
+    $query = "SELECT id,nombre,fecha_creacion FROM Serie WHERE nombre='".$value."'";
+    $query_searched = mysqli_query($db,$query);
+
+    $count_results = mysqli_num_rows($query_searched);
+
+    if($count_results>0){
+      echo '<h2 style="color:white;">Se han encontrado '.$count_results.'resultados.</h2>';
+
+      
+      while($row_searched = mysqli_fetch_array($query_searched)){
+        echo '<div style="display:flex;justify-content:center;">';
+        echo '<p style="color:white;">'.$row_searched['nombre'].'</p>'.",, ";
+        echo '<p style="color:white;">'.$row_searched['fecha_creacion'].'</p>';
+        echo '<a href="detalle.php?id='.$row_searched['id'].'"><img style="width:35px;height:35px;border-radius:30%;" src="/static/detalle.jpg" alt="detalle"/></a>';
+        echo '</div>';
+      }
+    }
+  }else{
+    echo '<h2 style="color:white;">No se encuentran resultados con esa búsqueda</h2>';
+  }
+   ?>
 </body>
 </html>
