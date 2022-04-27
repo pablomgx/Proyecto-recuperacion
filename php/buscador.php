@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,14 @@
 </head>
 <body>
 <p class="title">WebSeries</p>
-  <a href="./login.php">Login</a></br>
-  <a href="./register.php">Register</a>
+<?php
+  session_start();
+  if(!isset($_SESSION['user_id'])){
+    echo '<a href="./login.php">Login</a></br>';
+    echo '<a href="./register.php">Register</a>';
+  }else{
+    echo '<p class="title">Bienvenido a WebSeries</p>';
+  }
+?>
 </body>
 </html>
