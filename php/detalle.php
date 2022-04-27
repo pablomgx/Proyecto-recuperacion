@@ -37,6 +37,7 @@
     </style>
 </head>
 <body>
+<p class="title">WebSeries</p>
 <?php
 if(!isset($_SESSION['user_id'])){
     echo '<h2 style="color:white;">Debes loguearte</h2>';
