@@ -40,7 +40,7 @@
             error_log($e);
             header("Location: register.php?register_failed_unkown=True");
         }
-        header("Location: register.php?register_success=True");
+        header("Location: login.php?register_success=True");
     }
     
     mysqli_close($mysql);

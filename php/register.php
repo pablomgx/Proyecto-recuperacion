@@ -62,6 +62,7 @@ button {
     background: #FF3333;
     color: white;
     border: none;
+    align:center;
 }
  
 p.success,
@@ -130,7 +131,10 @@ p.error {
         <label style="color:black;">Verifica la contraseña</label>
         <input  id="password2" name="password2" type="password" name="password" style="width : 150px; heigth : 10px" required>
     </div>
+    <center>
     <button type="submit" name="register" value="register">Registro</button>
+    </center>
+    
 </div>
 </body>
 </html>
