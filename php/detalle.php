@@ -10,37 +10,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hubballi&display=swap" rel="stylesheet">
     <title>Buscador</title>
     <style>
-      body{
-        background-color:black;
-      }
-      .title{
-        text-align: center;
-        font-size:3rem;
-        color:white;
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF3333, 0 0 40px #FF3333,
-        0 0 50px #FF3333, 0 0 60px #FF3333, 0 0 70px #FF3333;
-        font-family: 'Bebas Neue', cursive;
-      }
-      a{
-        color:white;
-      }
-      p{
-        text-align:left;
-        color:white;
-        font-size:27px;
-        
-      }
-      p:first-of-type{
-        padding-top:20px;
-      }
-      .form-element{
-        text-align:center;
-        color:white;
-        font-size:20px;
-      }
-      .info{
-        margin-top:;
-      }
+    * {
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+}
+ body{
+     background-color:black;
+}
+ .title{
+     text-align: center;
+     font-size:3rem;
+     color:white;
+     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FF3333, 0 0 40px #FF3333, 0 0 50px #FF3333, 0 0 60px #FF3333, 0 0 70px #FF3333;
+     font-family: 'Bebas Neue', cursive;
+}
+ a{
+     color:white;
+}
+ p{
+     text-align:left;
+     color:white;
+     font-size:27px;
+}
+ p:first-of-type{
+     padding-top:50px;
+}
+ label {
+     width: 150px;
+     display: inline-block;
+     text-align: left;
+     font-size: 1.5rem;
+     font-family: 'Lato';
+}
+ input {
+     border: 2px solid #ccc;
+     font-size: 1.5rem;
+     font-weight: 100;
+     font-family: 'Lato';
+     padding: 10px;
+}
+form {
+    
+    margin: 25px auto;
+    padding: 20px;
+    border: 5px solid #ccc;
+    width: 500px;
+    background: #eee;
+}
+ div.form-element {
+     margin: 20px 0;
+}
+ button {
+     padding: 10px;
+     font-size: 1.5rem;
+     font-family: 'Lato';
+     font-weight: 100;
+     background: #FF3333;
+     color: white;
+     border: none;
+     align:center;
+}
+
     </style>
 </head>
 <body>
@@ -80,5 +111,19 @@
 }
   mysqli_close($mysqli);
    ?>
+   <form method="post" action="/do_comment.php" name="signup-form">
+    <div class="form-element">
+        <label style="color:black;">Comentario: </label>
+        <input id="comment" name="comment" type="text" style="width : 150px; heigth : 10px" required>
+    </div>
+
+    <div class="form-element">
+        <input id="id_serie" name="id_serie" type="hidden" style="width : 150px; heigth : 10px">
+    </div>
+
+    <center>
+    <button type="submit" name="enviar" value="enviar">Enviar</button>
+    </center>
+   </form>
 </body>
 </html
