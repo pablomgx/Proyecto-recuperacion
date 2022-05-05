@@ -82,8 +82,7 @@ form {
   $mysqli = get_db_connection_or_die();
   session_start();
   if(!isset($_SESSION['user_id'])){
-    echo '<h2 style="color:white;">Debes loguearte</h2>';
-    echo '<a style="color:white;" href="/login.php">Login</a>';
+    header('Location: login.php');
   }else{
     $id_serie = $_GET['id']; 
     if(empty($id_serie)){
@@ -111,14 +110,14 @@ form {
 }
   mysqli_close($mysqli);
    ?>
-   <form method="post" action="/do_comment.php" name="signup-form">
+   <form method="post" action="/do_comment.php" name="comment-form">
     <div class="form-element">
         <label style="color:black;">Comentario: </label>
         <input id="comment" name="comment" type="text" style="width : 150px; heigth : 10px" required>
     </div>
 
     <div class="form-element">
-        <input id="id_serie" name="id_serie" type="hidden" style="width : 150px; heigth : 10px">
+        <input id="id_serie" name="id_serie" type="hidden" value="<?php echo ($id_serie);?>"style="width : 150px; heigth : 10px">
     </div>
 
     <center>

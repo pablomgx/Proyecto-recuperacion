@@ -4,19 +4,26 @@
     session_start();
     $db = get_db_connection_or_die();
 
+    $id_usuario = $_SESSION['user_id'];
     $comentario = $_POST['comment'];
     $id_serie = $_POST['id_serie'];
-    $id_usuario = $_SESSION['user_id'];
+    
     $id_comentario = mt_rand(2,999);
+
+    if(empty($comentario) or empty($id_serie) or empty($id_usuario)or empty($id_comentario)){
+        die("Introduce los datos");
+    }
+
     try{    
-        $stmt = $db->prepare("INSERT INTO Comentario (id,id_usuario,id_serie,comentario) VALUES (?,?,?,?)");
+        $sql = "INSERT INTO Comentario (id,id_usuario,id_serie,comentario) VALUES (?,?,?,?)";
+        $stmt = $db->prepare($sql);
         $stmt->bind_param("iiis",$id_comentario,$id_usuario,$id_serie,$comentario);
         $stmt->execute();
-        header('Location: buscador.php');
         $stmt->close();
     }catch(Exception $e){
         error_log($e);
-        header('Location: detalle.php?comment_failed=True');
+        header('Location: ./detalle.php?comment_failed=True');
     }
+    header('Location: ./buscador.php?comment_success=True');
     mysqli_close($db);
 ?>
