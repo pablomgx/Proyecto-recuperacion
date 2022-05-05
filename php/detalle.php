@@ -38,7 +38,6 @@
 }
  label {
      width: 150px;
-     display: inline-block;
      text-align: left;
      font-size: 1.5rem;
      font-family: 'Lato';
@@ -48,15 +47,16 @@
      font-size: 1.5rem;
      font-weight: 100;
      font-family: 'Lato';
-     padding: 10px;
+     padding: 50px;
 }
 form {
     
-    margin: 25px auto;
-    padding: 20px;
+    margin: 25px;
+    padding: 49px;
     border: 5px solid #ccc;
     width: 500px;
-    background: #eee;
+    background:   #eee;
+    float:left;
 }
  div.form-element {
      margin: 20px 0;
@@ -70,6 +70,29 @@ form {
      color: white;
      border: none;
      align:center;
+}
+.detalle{
+  align-items:flex-start;
+}
+.detalle img{
+  float:left;
+  width:40%;
+  height:auto;
+  padding:20px;
+}
+.comentarios{
+  clear:both;
+display:flex;
+flex-direction:column;
+align-self:flex-end;
+flex-wrap: wrap;
+
+}
+.comentarios p{
+  font-size:15px;
+  font-style:italic;
+  text-align:center;
+
 }
 
     </style>
@@ -97,8 +120,8 @@ form {
     if($count_results>0){
 
       while($row_searched = mysqli_fetch_array($query_searched)){
-        echo '<div style="justify-content:left;">';
-        echo '<img style="float:left;width:30%;height:auto;padding:20px;" src="'.$row_searched['url_caractula'].'">';
+        echo '<div class="detalle">';
+        echo '<img src="'.$row_searched['url_caractula'].'">';
         echo '<p>Título: '.$row_searched['nombre'].'</p>';
         echo '<p>Autor: '.$row_searched['autor'].'</p>';
         echo '<p>Fecha creación: '.$row_searched['fecha_creacion'].'</p>';
@@ -107,13 +130,29 @@ form {
         echo '</div>';
       }
     }
+
+    $query2 = 'SELECT * FROM Comentario WHERE id_serie='.$id_serie.'';
+    $result = mysqli_query($mysqli,$query2);
+
+    $results = mysqli_num_rows($result);
+    if($results>0){
+      while($row_searched = mysqli_fetch_array($result)){
+        echo '<div class="comentarios">';
+        echo '<p>Id_usuario: '.$row_searched['id_usuario'].'</p>';
+        echo '<p>Comentario: '.$row_searched['comentario'].'</p>';
+        echo '</div>';
+        
+      }
+    }else{
+      echo '<p>No hay comentarios</p>';
+    }
 }
   mysqli_close($mysqli);
    ?>
    <form method="post" action="/do_comment.php" name="comment-form">
     <div class="form-element">
-        <label style="color:black;">Comentario: </label>
-        <input id="comment" name="comment" type="text" style="width : 150px; heigth : 10px" required>
+        <label style="color:black;">Añade un nuevo comentario </label>
+        <input id="comment" name="comment" type="text" required>
     </div>
 
     <div class="form-element">
