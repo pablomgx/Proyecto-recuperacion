@@ -105,7 +105,8 @@ flex-wrap: wrap;
   $mysqli = get_db_connection_or_die();
   session_start();
   if(!isset($_SESSION['user_id'])){
-    header('Location: login.php');
+    echo '<p style="color:white">Debes loguearte</p>';
+    #header('Location: login.php');
   }else{
     $id_serie = $_GET['id']; 
     if(empty($id_serie)){
@@ -146,22 +147,23 @@ flex-wrap: wrap;
     }else{
       echo '<p>No hay comentarios</p>';
     }
+    if(isset($_SESSION['user_id'])){
+      echo '<form method="post" action="/do_comment.php" name="comment-form">';
+      echo '<div class="form-element">';
+      echo '<label style="color:black;">Añade un nuevo comentario </label>';          
+      echo '<input id="comment" name="comment" type="text" required>';
+      echo '</div>';
+  
+      echo '<div class="form-element">';
+          echo '<input id="id_serie" name="id_serie" type="hidden" value="<?php echo ($id_serie);?>"style="width : 150px; heigth : 10px">';
+      echo '</div>';
+      echo '<center>';
+      echo '<button type="submit" name="enviar" value="enviar">Enviar</button>';
+    echo '</center>';
+     echo '</form>';
+    }
 }
   mysqli_close($mysqli);
    ?>
-   <form method="post" action="/do_comment.php" name="comment-form">
-    <div class="form-element">
-        <label style="color:black;">Añade un nuevo comentario </label>
-        <input id="comment" name="comment" type="text" required>
-    </div>
-
-    <div class="form-element">
-        <input id="id_serie" name="id_serie" type="hidden" value="<?php echo ($id_serie);?>"style="width : 150px; heigth : 10px">
-    </div>
-
-    <center>
-    <button type="submit" name="enviar" value="enviar">Enviar</button>
-    </center>
-   </form>
 </body>
 </html
