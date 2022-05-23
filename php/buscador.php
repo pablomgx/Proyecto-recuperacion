@@ -62,7 +62,7 @@
     $value = $_POST['texto_busqueda']; 
     require __DIR__ . '/db_connection.php';
     $db = get_db_connection_or_die();
-    $query = "SELECT id,nombre,fecha_creacion FROM Serie WHERE nombre='".$value."'";
+    $query = "SELECT id,nombre,fecha_creacion FROM Serie WHERE nombre LIKE '%".$value."%'";
     $query_searched = mysqli_query($db,$query);
 
     $count_results = mysqli_num_rows($query_searched);
