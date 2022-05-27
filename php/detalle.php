@@ -131,15 +131,19 @@ flex-wrap: wrap;
         echo '</div>';
       }
     }
-    $query2 = 'SELECT * FROM Comentario WHERE id_serie = '.$id_serie.'';
     
+    
+    # muestra los comentarios con el id_serie correspondiente
+    #$query2 = 'SELECT * FROM Comentario WHERE id_serie = '.$id_serie.'';
+
+    $query2 = 'SELECT * FROM Comentario JOIN Usuario on Comentario.id_usuario=Usuario.id WHERE id_serie = '.$id_serie.'';
     $result = mysqli_query($mysqli,$query2);
 
     $results = mysqli_num_rows($result);
     if($results>0){
       while($row_searched = mysqli_fetch_array($result)){
         echo '<div class="comentarios">';
-        echo '<p>Id_usuario: '.$row_searched['id_usuario'].'</p>';
+        echo '<p>Nombre: '.$row_searched['nombre'].'</p>';
         echo '<p>Comentario: '.$row_searched['comentario'].'</p>';
         echo '</div>';
         
