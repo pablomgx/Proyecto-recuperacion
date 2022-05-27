@@ -99,6 +99,7 @@ flex-wrap: wrap;
 </head>
 <body>
 <p class="title">WebSeries</p>
+<a href="buscador.php">Volver al buscador</a>
 <?php
 
   require __DIR__ . '/db_connection.php';

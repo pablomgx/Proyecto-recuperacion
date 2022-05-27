@@ -22,7 +22,7 @@
         error_log($e);
         header('Location: /detalle.php?comment_failed=True');
     }
-    header('Location: /detalle.php?id='.$id_serie.'');
+    header('Refresh:5; Location:buscador.php?comment_succes=True');
     $stmt->close();
     mysqli_close($db);
 ?>
