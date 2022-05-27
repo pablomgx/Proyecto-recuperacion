@@ -110,7 +110,7 @@ flex-wrap: wrap;
   }else{
     $id_serie = $_GET['id']; 
     if(empty($id_serie)){
-      echo 'No se ha indicado un ID de serie';
+      echo '<p style="color:white">No se ha indicado un ID de serie</p>';
       exit;
     }
     $query = 'SELECT * FROM Serie WHERE id='.$id_serie.'';
@@ -131,8 +131,8 @@ flex-wrap: wrap;
         echo '</div>';
       }
     }
-
-    $query2 = 'SELECT * FROM Comentario JOIN Usuario on Comentario.id_usuario=Usuario.id';
+    $query2 = 'SELECT * FROM Comentario WHERE id_serie = '.$id_serie.'';
+    
     $result = mysqli_query($mysqli,$query2);
 
     $results = mysqli_num_rows($result);
