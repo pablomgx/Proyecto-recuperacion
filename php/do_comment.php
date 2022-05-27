@@ -7,7 +7,6 @@
     $id_usuario = $_SESSION['user_id'];
     $comentario = $_POST['comment'];
     $id_serie = $_POST['id_serie'];
-    
     $id_comentario = mt_rand(2,999);
 
     if(empty($comentario) or empty($id_serie) or empty($id_usuario)or empty($id_comentario)){
@@ -19,19 +18,11 @@
         $stmt = $db->prepare($sql);
         $stmt->bind_param("iiis",$id_comentario,$id_usuario,$id_serie,$comentario);
         $stmt->execute();
-        $stmt->close();
-        header('Location: /buscador.php?comment_success=True');
     }catch(Exception $e){
         error_log($e);
         header('Location: /detalle.php?comment_failed=True');
     }
-    if($db->affected_rows>0){
-        header("Location: /buscador.php");
-        exit;
-    }
-    else{
-        header("Location: /detalle.php?failed=True");
-    }
-    #header('Location: ./buscador.php?comment_success=True');
+    header('Location: /detalle.php?id='.$id_serie.'');
+    $stmt->close();
     mysqli_close($db);
 ?>

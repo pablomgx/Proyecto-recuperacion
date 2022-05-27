@@ -106,7 +106,7 @@ flex-wrap: wrap;
   session_start();
   if(!isset($_SESSION['user_id'])){
     echo '<p style="color:white">Debes loguearte</p>';
-    #header('Location: login.php');
+    echo '<a href="login.php">Login</a>';
   }else{
     $id_serie = $_GET['id']; 
     if(empty($id_serie)){
@@ -159,7 +159,7 @@ flex-wrap: wrap;
       echo '</div>';
   
       echo '<div class="form-element">';
-          echo '<input id="id_serie" name="id_serie" type="hidden" value="<?php echo ($id_serie);?>"style="width : 150px; heigth : 10px">';
+          echo '<input id="id_serie" name="id_serie" type="hidden" value="'.$id_serie.'" style="width : 150px; heigth : 10px">';
       echo '</div>';
       echo '<center>';
       echo '<button type="submit" name="enviar" value="enviar">Enviar</button>';
