@@ -20,10 +20,18 @@
         $stmt->bind_param("iiis",$id_comentario,$id_usuario,$id_serie,$comentario);
         $stmt->execute();
         $stmt->close();
+        header('Location: /buscador.php?comment_success=True');
     }catch(Exception $e){
         error_log($e);
-        header('Location: ./detalle.php?comment_failed=True');
+        header('Location: /detalle.php?comment_failed=True');
     }
-    header('Location: ./buscador.php?comment_success=True');
+    if($db->affected_rows>0){
+        header("Location: /buscador.php");
+        exit;
+    }
+    else{
+        header("Location: /detalle.php?failed=True");
+    }
+    #header('Location: ./buscador.php?comment_success=True');
     mysqli_close($db);
 ?>

@@ -132,7 +132,7 @@ flex-wrap: wrap;
       }
     }
 
-    $query2 = 'SELECT * FROM Comentario WHERE id_serie='.$id_serie.'';
+    $query2 = 'SELECT * FROM Comentario JOIN Usuario on Comentario.id_usuario=Usuario.id';
     $result = mysqli_query($mysqli,$query2);
 
     $results = mysqli_num_rows($result);

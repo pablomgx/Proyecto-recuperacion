@@ -67,10 +67,11 @@
 
     $count_results = mysqli_num_rows($query_searched);
 
-    if($count_results>0){
+    if($count_results==0){
+      echo '<h2 style="color:white;">No se encuentran resultados con esa búsqueda</h2>';
+    }else{
       echo '<h2 style="color:white;">Se han encontrado '.$count_results.'resultados.</h2>';
 
-      
       while($row_searched = mysqli_fetch_array($query_searched)){
         echo '<div style="display:flex;justify-content:center;">';
         echo '<p style="color:white;">'.$row_searched['nombre'].'</p>'.",, ";
@@ -79,8 +80,6 @@
         echo '</div>';
       }
     }
-  }else{
-    echo '<h2 style="color:white;">No se encuentran resultados con esa búsqueda</h2>';
   }
    ?>
 </body>
